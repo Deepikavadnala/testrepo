@@ -1,0 +1,56 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Diffie-Hellman Key Exchange</title>
+</head>
+<body>
+    <h2>Diffie-Hellman Key Exchange</h2>
+
+    Prime Number (P):
+    <input type="number" id="p" value="23"><br><br>
+
+    Primitive Root (G):
+    <input type="number" id="g" value="5"><br><br>
+
+    Alice's Private Key:
+    <input type="number" id="a" value="6"><br><br>
+
+    Bob's Private Key:
+    <input type="number" id="b" value="15"><br><br>
+
+    <button onclick="calculate()">Generate Shared Key</button>
+
+    <h3>Output:</h3>
+    <p id="result"></p>
+
+    <script>
+        function power(base, exp, mod) {
+            let result = 1;
+            for (let i = 0; i < exp; i++) {
+                result = (result * base) % mod;
+            }
+            return result;
+        }
+
+        function calculate() {
+            let p = Number(document.getElementById("p").value);
+            let g = Number(document.getElementById("g").value);
+            let a = Number(document.getElementById("a").value);
+            let b = Number(document.getElementById("b").value);
+
+            let A = power(g, a, p);
+            let B = power(g, b, p);
+
+            let key1 = power(B, a, p);
+            let key2 = power(A, b, p);
+
+            document.getElementById("result").innerHTML =
+                "Alice's Public Key: " + A + "<br>" +
+                "Bob's Public Key: " + B + "<br>" +
+                "Alice's Shared Key: " + key1 + "<br>" +
+                "Bob's Shared Key: " + key2;
+        }
+    </script>
+</body>
+</html>
